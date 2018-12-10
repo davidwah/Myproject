@@ -1,33 +1,29 @@
 package com.dwp.login;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.support.design.internal.NavigationMenuPresenter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
+import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.zxing.BarcodeFormat;
-
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-
-public class MasukActivity extends AppCompatActivity {
+public class KeluarActivity extends AppCompatActivity {
     ConnectivityManager conMgr;
 
     public View ToastView;
@@ -37,14 +33,13 @@ public class MasukActivity extends AppCompatActivity {
     ImageView image;
     private Session session;
     String username = "";
-//    String text2Qr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_masuk);
+        setContentView(R.layout.activity_keluar);
 
-//        text = (EditText) findViewById(R.id.text);
+
         btn_generate = (Button) findViewById(R.id.gen_btn);
         back = (Button) findViewById(R.id.back);
 
@@ -95,7 +90,7 @@ public class MasukActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MasukActivity.this, MainActivity.class);
+                Intent intent = new Intent(KeluarActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
             }

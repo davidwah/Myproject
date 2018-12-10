@@ -34,6 +34,7 @@ public class Login extends AppCompatActivity {
     Button btn_register, btn_login;
     EditText txt_username, txt_password;
     Intent intent;
+    private Session session;
 
     int success;
     ConnectivityManager conMgr;
@@ -41,19 +42,15 @@ public class Login extends AppCompatActivity {
     private String url = Server.URL + "login.php";
 
     private static final String TAG = Login.class.getSimpleName();
-
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-
     public final static String TAG_USERNAME = "username";
     public final static String TAG_ID = "id";
     public final static String TAG_SALDO = "saldo";
 
     String tag_json_obj = "json_obj_req";
 
-    SharedPreferences sharedpreferences;
-    Boolean session = false;
-    String id, username, saldo;
+    String id, username;
 
     public static final String my_shared_preferences = "my_shared_preferences";
     public static final String session_status = "session_status";
@@ -79,18 +76,10 @@ public class Login extends AppCompatActivity {
         txt_username = (EditText) findViewById(R.id.txt_username);
         txt_password = (EditText) findViewById(R.id.txt_password);
 
-        // Cek session login jika TRUE maka langsung buka MainActivity
-        sharedpreferences = getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
-        session = sharedpreferences.getBoolean(session_status, false);
-        id = sharedpreferences.getString(TAG_ID, null);
-        saldo = sharedpreferences.getString(TAG_SALDO, null);
-        username = sharedpreferences.getString(TAG_USERNAME, null);
+        session = new Session(this);
 
-        if (session) {
+        if (session.loggedin()) {
             Intent intent = new Intent(Login.this, MainActivity.class);
-            intent.putExtra(TAG_ID, id);
-            intent.putExtra(TAG_SALDO, saldo);
-            intent.putExtra(TAG_USERNAME, username);
             finish();
             startActivity(intent);
         }
@@ -103,6 +92,8 @@ public class Login extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 String username = txt_username.getText().toString();
                 String password = txt_password.getText().toString();
+//                String saldo = txt_saldo.getText().toString();
+
 
                 // mengecek kolom yang kosong
                 if (username.trim().length() > 0 && password.trim().length() > 0) {
@@ -154,22 +145,22 @@ public class Login extends AppCompatActivity {
                     if (success == 1) {
                         String username = jObj.getString(TAG_USERNAME);
                         String id = jObj.getString(TAG_ID);
+                        String saldo = jObj.getString(TAG_SALDO);
 
                         Log.e("Successfully Login!", jObj.toString());
 
                         Toast.makeText(getApplicationContext(), jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
                         // menyimpan login ke session
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.putBoolean(session_status, true);
-                        editor.putString(TAG_ID, id);
-                        editor.putString(TAG_USERNAME, username);
-                        editor.commit();
+                        session.setLoggedIn(true);
+                        session.saveUsername(username);
+                        session.saveSaldo(saldo);
+                        session.saveTagID(id);
 
                         // Memanggil main activity
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.putExtra(TAG_ID, id);
-                        intent.putExtra(TAG_SALDO, id); //coba ambil data dari ID user
+                        intent.putExtra(TAG_SALDO, saldo); //coba ambil data dari ID user
                         intent.putExtra(TAG_USERNAME, username);
                         finish();
                         startActivity(intent);
@@ -202,7 +193,7 @@ public class Login extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username);
                 params.put("password", password);
-                params.put("saldo", saldo);
+//                params.put("saldo", saldo);
 
                 return params;
             }

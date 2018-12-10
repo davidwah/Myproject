@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".MasukActivity"></activity>
+        <activity android:name=".MasukActivity" />
+        <activity android:name=".KeluarActivity" />
+        <activity android:name=".HistoryActivity"></activity>
     </application>
 
 </manifest>

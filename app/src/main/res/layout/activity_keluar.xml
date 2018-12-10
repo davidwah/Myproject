@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dwp.login.MasukActivity">
-
+    tools:context=".KeluarActivity">
 
     <Button
         android:id="@+id/gen_btn"
@@ -40,4 +39,5 @@
         android:background="#00555555"
         android:text="kembali"
         android:visibility="visible" />
+
 </RelativeLayout>

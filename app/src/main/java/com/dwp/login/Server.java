@@ -5,5 +5,5 @@ package com.dwp.login;
  */
 
 public class Server {
-    public static final String URL = "http://192.168.0.103/coba_logindedi/";   //"http://35.236.146.171/login_kuncoro/";
+    public static final String URL =  "http://192.168.1.102/coba_login/";  ////"http://35.240.191.68/coba_login/";
 }
