@@ -17,7 +17,7 @@ import com.dwp.login.m_JSON.JSONDownloader;
 public class HistoryActivity extends AppCompatActivity {
     
     
-    String jsonURL="http://192.168.1.102/coba_login/history.php";
+    String jsonURL;
 
     ListView listView;
     Button  btn_back;
@@ -35,10 +35,17 @@ public class HistoryActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.lv);
 
+        Session session = new Session(this);
+        String username = session.getsaveUsername();
+        System.out.println(username);
+        jsonURL="http://192.168.1.102/coba_login/history.php?username="+username;
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println(jsonURL);
                 new JSONDownloader(HistoryActivity.this,jsonURL, listView).execute();
             }
         });
@@ -47,6 +54,7 @@ public class HistoryActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);

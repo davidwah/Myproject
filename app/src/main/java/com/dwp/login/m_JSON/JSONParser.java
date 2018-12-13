@@ -69,6 +69,7 @@ public class JSONParser extends AsyncTask<Void,Void,Boolean> {
 
     private Boolean parse() {
         try {
+            System.out.println(jsonData);
             JSONArray ja = new JSONArray(jsonData);
             JSONObject jo;
 
@@ -76,8 +77,8 @@ public class JSONParser extends AsyncTask<Void,Void,Boolean> {
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
 
-                String id = jo.getString("id");
-                users.add(id);
+//                String id = jo.getString("id");
+//                users.add(id);
                 String username = jo.getString("username");
                 users.add(username);
                 String dateIN = jo.getString("dateIN");
