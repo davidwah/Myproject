@@ -65,7 +65,7 @@ public class KeluarActivity extends AppCompatActivity {
 //                text2Qr = text.getText().toString().trim();
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try{
-                    BitMatrix bitMatrix = multiFormatWriter.encode(username, BarcodeFormat.QR_CODE,200,200);
+                    BitMatrix bitMatrix = multiFormatWriter.encode(username + ":keluarParkir", BarcodeFormat.QR_CODE,200,200);
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix );
                     image.setImageBitmap(bitmap);

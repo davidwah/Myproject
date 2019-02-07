@@ -38,7 +38,7 @@ public class HistoryActivity extends AppCompatActivity {
         Session session = new Session(this);
         String username = session.getsaveUsername();
         System.out.println(username);
-        jsonURL="http://192.168.1.102/coba_login/history.php?username="+username;
+        jsonURL="http://192.168.1.10/coba_login/history.php?username="+username;
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
